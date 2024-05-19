@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Pramuditya</title>
-    @vite('resources/css/app.css')
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- @vite('resources/css/app.css') --}}
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -13,8 +14,20 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+      @if($message = Session::get('success'))
+    <script>
+        Swal.fire({
+            title: "Thank You",
+            text: "{{ Session::get('success') }}",
+            // background: "#00C853"
+            // color: "#FAFAFA",
+            icon: "success"
+        });
+    </script>
+@endif
 <nav id="header" class="fixed w-full z-30 top-0 text-black">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
             <div class="pl-4 flex items-center">
@@ -50,6 +63,11 @@
                     Contact Me
                 </button>
                 </a>
+                <a href={{url('/login')}}>
+                    <button id="navAction" class="mx-auto lg:mx-0 hover:underline bg-sky-400 text-gray-700 font-bold rounded-3xl drop-shadow-led-black mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                    Login
+                </button>
+                </a>
             </div>
         </div>
         <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
@@ -65,11 +83,6 @@
         contactSection.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
-
-        </div>
-    </div>
-    <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
-</nav>
     
 <!-- Hero Section Start -->
     <section id="home" class="pt-36 dark:bg-dark">
@@ -89,7 +102,7 @@
                 </div>
                 <div class="sm:w-full self-end px-4 lg:w-1/2">
                     <div class="relative mt-10 lg:mt-0 lg:right-0">
-                        <img src="saya.png" alt="Pramuditya" class="max-w-full mx-auto">
+                        <img src="{{ asset('img/saya.png') }}" alt="Pramuditya" class="max-w-full mx-auto">
                     </div>
                 </div>
             </div>
@@ -134,7 +147,6 @@
                 </div>
             </div>
         </div>
-        
     </section>
 <!-- About Section End -->
 
@@ -143,7 +155,7 @@
         <div class="container">
             <div class="w-full px-4">
                 <div class="max-w-xl mx-auto text-center mb-16">
-                    <h4 class="font-bold text-sky-400 text-primary mb-2 text-lg">Project yang telah dibuat</h4>
+                    <h4 class="font-bold text-3xl text-sky-400 text-primary mb-2">Project yang telah dibuat</h4>
                     <h2 class="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-white">Bangga men</h2>
                     <p class="font-medium text-md text-secondary md:text-lg">Programmer yang kompeten menyadari sepenuhnya kapasitas otaknya yang terbatas. Karena itu, dia menyelesaikan tugasnya
                     dengan pendekatan yang penuh kerendahan hati, dan menghindari trik cerdik yang seperti penyakit. </p>
@@ -152,7 +164,7 @@
             <div class="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
                 <div class="mb-12 p-4 md:w-1/2">
                     <div class="rounded-md shadow-md overflow-hidden">
-                        <img src="gr.png" alt="Game Greenfoot" width="w-full">
+                        <img src="{{ asset('img/gr.png')}}" alt="Game Greenfoot" width="w-full">
                     </div>    
                     <h3 class="font-semibold text-xl text-dark mt-5 mb-3 dark:text-white">Roket pada greenfoot |<span class="font-semibold text-lime-500 text-primary mb-2"> Greenfoot</span></h3>
                     <p class="font-medium text-base text-secondary">
@@ -162,7 +174,7 @@
                 </div>
                 <div class="mb-12 p-4 md:w-1/2">
                     <div class="rounded-md shadow-md overflow-hidden">
-                        <img src="pj.png" alt="Toko Sepatu" width="w-full items-center">
+                        <img src="{{ asset('img/pj.png')}}" alt="Toko Sepatu" width="w-full items-center">
                     </div>    
                     <h3 class="font-semibold text-xl text-dark mt-5 mb-3 dark:text-white">Toko Sepatu |<span class="font-semibold text-lime-400 text-primary mb-2"> Website</span></h3>
                     <p class="font-medium text-base text-secondary">
@@ -180,7 +192,7 @@
         <div class="container">
             <div class="w-full px-4">
                 <div class="mx-auto text-center mb-16">
-                    <h4 class="font-bold text-sky-400 text-primary mb-2">Skills</h4>
+                    <h4 class="font-bold text-3xl text-sky-400 text-primary mb-2">Skills</h4>
                     <h2 class="font-bold text-neutral-600 text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-dark">Skill yang dimiliki</h2>
                     <p class="font-medium text-md text-secondary md:text-lg">Berikut ini beberapa pengetahuan yang berkaitan dengan website</p>
                 </div>
@@ -188,28 +200,28 @@
             <div class="w-full px-4">
                 <div class="flex flex-wrap items-center justify-center">
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="HTML5_logo.png" alt="HTML 5">
+                        <img src="{{ asset('img/HTML5_logo.png')}}" alt="HTML 5">
                     </a>
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="CSS3_logo.png" alt="CSS 3">
+                        <img src="{{ asset ('img/CSS_logo.png')}}" alt="CSS 3">
                     </a>
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="PHP-logo.png" alt="PHP">
+                        <img src="{{ asset ('img/PHP-logo.png')}}" alt="PHP">
                     </a>
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="bootstrap-5-logo.png" alt="Bootstrap">
+                        <img src="{{ asset('img/bootstrap-5-logo.png')}}" alt="Bootstrap">
                     </a>
                 </div>
                 <div class="flex flex-wrap items-center justify-center">
                     <a href="#"
                         class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="Tailwind_CSS_Logo.png" alt="Tailwind">
+                        <img src="{{ asset ('img/Tailwind_CSS_Logo.png')}}" alt="Tailwind">
                         </a>
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="mysql-logo.png" alt="MySql">
+                        <img src="{{ asset ('img/mysql-logo.png')}}" alt="MySql">
                     </a>
                     <a href="#" class="max-w-[120px] mx-4 py-4 grayscale opacity-60 transition duration-500 hover:grayscale-0 hover:opacity-100 lg:mx-6 xl:mx-8">
-                        <img src="sqlserver.png" alt="SQL Server">
+                        <img src="{{ asset ('img/sqlserver.png')}}" alt="SQL Server">
                     </a>
                 </div>
             </div>
@@ -222,7 +234,7 @@
         <div class="container mx-auto">
             <div class="w-full px-4">
                 <div class="max-w-xl mx-auto text-center mb-16">
-                    <h4 class="font-semibold text-lg text-primary mb-2">Hobby</h4>
+                    <h4 class="font-bold text-3xl text-primary mb-2">Hobby</h4>
                     <h2 class="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-sky-400">Kegemaran dan Kesukaan</h2>
                     <p class="font-medium text-md text-secondary md:text-lg">Orang yang suka dengan tantangan dan pengalaman baru.</p>
                 </div>
@@ -268,30 +280,29 @@
         <div class="container">
             <div class="w-full px-4">
                 <div class="max-w-xl mx-auto text-center mb-16">
-                    <h4 class="font-semibold text-sky-400 text-primary mb-2">Contact</h4>
+                    <h4 class="font-bold text-3xl text-sky-400 text-primary mb-2">Contact</h4>
                     <h2 class="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-white">Hubungi Kami</h2>
                     <p class="font-medium text-md text-secondary md:text-lg">Tinggalkan pesan</p>
                 </div>
             </div>
-            <form action="">
+            <form method="POST">
+                @csrf
                 <div class="w-full lg:w-2/3 lg:mx-auto">
                     <div class="w-full px-4 mb-8">
                         <label for="name" class="text-sky-400 font-bold text-primary">Nama</label>
-                        <input type="text" id="name" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" />
+                        <input type="text" id="name" name="name" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"value="{{ (isset($contact)) ? $contact->name:"" }}" />
                     </div> 
                     <div class="w-full px-4 mb-8">
                         <label for="email" class="text-sky-400 font-bold text-primary">Email</label>
-                        <input type="text" id="email" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" />
+                        <input type="text" id="email" name="email" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" value="{{ (isset($contact)) ? $contact->email:"" }}" />
                     </div> 
                     <div class="w-full px-4 mb-8">
                         <label for="message" class="text-sky-400 font-bold text-primary">Pesan</label>
-                        <input type="text" id="message" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32" />
+                        <input type="text" id="message" name="pesan" class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32" value="{{ (isset($contact)) ? $contact->pesan:"" }}" />
                     </div>
                     <div class="w-full px-4">
                     <button class="text-base font-semibold text-white bg-green-500 py-3 px-8 rounded-full w-full hover:bg-yellow-500 hover:opacity-80 hover:shadow-lg transition duration-500">Kirim</button>
                     </div>
-
-
                 </div>
             </form>            
         </div>
@@ -379,7 +390,7 @@
     <a href="#home" id="to-top" class="hidden fixed bottom-4 right-4 z-[9999] justify-center items-center h-14 w-14 rounded-full bg-primary p-4 hover:animate-pulse">
         <span class="block h-5 w-5 border-t-2 border-l-2 rotate-45 mt-2"></span>
     </a>
- <script src="{{ mix('js/app.js') }}"></script>
+ {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
     <script>
         var scrollpos = window.scrollY;
@@ -397,8 +408,8 @@
                 header.classList.add("backdrop-blur-xl");
                 navaction.classList.remove("bg-blue");
                 navaction.classList.add("gradient");
-                navaction.classList.remove("text-gray-800");
-                navaction.classList.add("text-white");
+                navaction.classList.remove("text-black");
+                navaction.classList.add("text-black");
                 //Use to switch toggleColour colours
                 for (var i = 0; i < toToggle.length; i++) {
                     toToggle[i].classList.add("text-gray-800");
@@ -426,6 +437,20 @@
         });
 
     </script>
+     <script>
+      
+      const swal = $('.swal').data('swal');
+
+        if(swal){
+            Swal.fire({
+                'title':'Success',
+                'text' : swal,
+                'icon': 'success',
+                'showConfirmButton':false,
+                'timer':2000
+            })
+        }
+        </script>
     <script>
         /*Toggle dropdown list*/
         /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
